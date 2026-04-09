@@ -1,0 +1,671 @@
+<!DOCTYPE html>
+<html lang="sv">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Villa Sjövik × VELUX — Samarbetsförslag</title>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400&family=Inter:wght@300;400;500&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --cream:   #F7F4EF;
+      --warm:    #EDE8E0;
+      --stone:   #C8BFB0;
+      --ink:     #1C1916;
+      --mid:     #6B6460;
+      --accent:  #3D5A4F;
+      --gold:    #A8895C;
+      --red:     #9B4A3A;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      background: var(--cream);
+      color: var(--ink);
+      overflow-x: hidden;
+    }
+
+    /* ─── HERO ──────────────────────────────── */
+    .hero {
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      padding: 60px 24px;
+      background: var(--ink);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .hero::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(ellipse at 60% 40%, rgba(61,90,79,.35) 0%, transparent 70%);
+    }
+
+    .hero-eyebrow {
+      font-family: 'Inter', sans-serif;
+      font-size: 11px;
+      font-weight: 500;
+      letter-spacing: .18em;
+      text-transform: uppercase;
+      color: var(--stone);
+      margin-bottom: 32px;
+      opacity: 0;
+      animation: fadeUp .8s .2s forwards;
+    }
+
+    .hero h1 {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(52px, 9vw, 110px);
+      font-weight: 400;
+      line-height: 1;
+      color: var(--cream);
+      opacity: 0;
+      animation: fadeUp .9s .4s forwards;
+    }
+
+    .hero h1 em {
+      font-style: italic;
+      color: var(--gold);
+    }
+
+    .hero-sub {
+      margin-top: 28px;
+      font-size: clamp(14px, 2vw, 18px);
+      font-weight: 300;
+      color: var(--stone);
+      max-width: 520px;
+      line-height: 1.65;
+      opacity: 0;
+      animation: fadeUp .9s .65s forwards;
+    }
+
+    .hero-scroll {
+      position: absolute;
+      bottom: 36px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 8px;
+      opacity: 0;
+      animation: fadeUp .8s 1.2s forwards;
+    }
+
+    .hero-scroll span {
+      font-size: 10px;
+      letter-spacing: .16em;
+      text-transform: uppercase;
+      color: var(--mid);
+    }
+
+    .scroll-line {
+      width: 1px;
+      height: 48px;
+      background: linear-gradient(to bottom, var(--mid), transparent);
+      animation: scrollPulse 2s 1.5s infinite;
+    }
+
+    /* ─── SECTIONS ──────────────────────────── */
+    section {
+      padding: 100px 24px;
+      max-width: 1000px;
+      margin: 0 auto;
+    }
+
+    .section-label {
+      font-size: 10px;
+      letter-spacing: .2em;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 20px;
+      font-weight: 500;
+    }
+
+    h2 {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(34px, 5vw, 54px);
+      font-weight: 500;
+      line-height: 1.1;
+      margin-bottom: 28px;
+    }
+
+    p {
+      font-size: 16px;
+      line-height: 1.75;
+      color: var(--mid);
+      max-width: 640px;
+    }
+
+    /* ─── STATS ─────────────────────────────── */
+    .stats-band {
+      background: var(--warm);
+      padding: 60px 24px;
+    }
+
+    .stats-inner {
+      max-width: 900px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+      gap: 40px;
+      text-align: center;
+    }
+
+    .stat-num {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 52px;
+      font-weight: 500;
+      color: var(--accent);
+      line-height: 1;
+    }
+
+    .stat-label {
+      margin-top: 8px;
+      font-size: 12px;
+      letter-spacing: .12em;
+      text-transform: uppercase;
+      color: var(--mid);
+    }
+
+    /* ─── CONTENT PLAN ──────────────────────── */
+    .steps {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(270px, 1fr));
+      gap: 24px;
+      margin-top: 52px;
+    }
+
+    .step {
+      background: var(--warm);
+      border-radius: 4px;
+      padding: 36px 32px;
+      position: relative;
+      overflow: hidden;
+      transition: transform .3s;
+    }
+
+    .step:hover { transform: translateY(-4px); }
+
+    .step::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0;
+      width: 3px;
+      height: 100%;
+      background: var(--accent);
+    }
+
+    .step-num {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 72px;
+      font-weight: 400;
+      color: var(--warm);
+      position: absolute;
+      top: -8px; right: 16px;
+      line-height: 1;
+      user-select: none;
+    }
+
+    .step h3 {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 22px;
+      font-weight: 500;
+      margin-bottom: 12px;
+    }
+
+    .step p {
+      font-size: 14px;
+      line-height: 1.7;
+    }
+
+    .step-tag {
+      display: inline-block;
+      margin-top: 20px;
+      padding: 4px 12px;
+      background: var(--stone);
+      border-radius: 2px;
+      font-size: 10px;
+      letter-spacing: .14em;
+      text-transform: uppercase;
+      color: var(--ink);
+    }
+
+    /* ─── DELIVERABLES ──────────────────────── */
+    .delivers-grid {
+      margin-top: 48px;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 20px;
+    }
+
+    .deliver-card {
+      border: 1px solid var(--stone);
+      border-radius: 4px;
+      padding: 28px;
+    }
+
+    .deliver-icon {
+      font-size: 24px;
+      margin-bottom: 14px;
+    }
+
+    .deliver-card h4 {
+      font-size: 15px;
+      font-weight: 500;
+      margin-bottom: 8px;
+    }
+
+    .deliver-card p {
+      font-size: 13px;
+      line-height: 1.65;
+    }
+
+    /* ─── PRICING ───────────────────────────── */
+    .pricing-wrap {
+      background: var(--ink);
+      padding: 100px 24px;
+    }
+
+    .pricing-inner {
+      max-width: 860px;
+      margin: 0 auto;
+    }
+
+    .pricing-inner .section-label { color: var(--gold); }
+    .pricing-inner h2 { color: var(--cream); }
+    .pricing-inner > p { color: var(--stone); }
+
+    .pricing-cards {
+      margin-top: 52px;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+      gap: 24px;
+      align-items: start;
+    }
+
+    .price-card {
+      border: 1px solid rgba(200,191,176,.25);
+      border-radius: 4px;
+      padding: 40px 36px;
+      position: relative;
+    }
+
+    .price-card.featured {
+      border-color: var(--gold);
+      background: rgba(168,137,92,.07);
+    }
+
+    .price-badge {
+      position: absolute;
+      top: -13px;
+      left: 36px;
+      background: var(--gold);
+      color: var(--ink);
+      font-size: 10px;
+      font-weight: 500;
+      letter-spacing: .14em;
+      text-transform: uppercase;
+      padding: 4px 14px;
+      border-radius: 2px;
+    }
+
+    .price-title {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 28px;
+      font-weight: 500;
+      color: var(--cream);
+      margin-bottom: 6px;
+    }
+
+    .price-desc {
+      font-size: 12px;
+      color: var(--stone);
+      letter-spacing: .06em;
+      margin-bottom: 28px;
+    }
+
+    .price-original {
+      font-size: 16px;
+      color: var(--mid);
+      text-decoration: line-through;
+      margin-bottom: 4px;
+    }
+
+    .price-amount {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 52px;
+      font-weight: 500;
+      color: var(--cream);
+      line-height: 1;
+    }
+
+    .price-amount span {
+      font-size: 16px;
+      font-family: 'Inter', sans-serif;
+      font-weight: 300;
+      color: var(--stone);
+      margin-left: 4px;
+    }
+
+    .price-list {
+      margin-top: 28px;
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    .price-list li {
+      font-size: 13px;
+      color: var(--stone);
+      display: flex;
+      gap: 10px;
+      line-height: 1.5;
+    }
+
+    .price-list li::before {
+      content: '—';
+      color: var(--gold);
+      flex-shrink: 0;
+    }
+
+    /* ─── INSTALLATION NOTE ─────────────────── */
+    .install-note {
+      margin-top: 40px;
+      padding: 24px 28px;
+      border-left: 3px solid var(--accent);
+      background: rgba(61,90,79,.12);
+      border-radius: 0 4px 4px 0;
+    }
+
+    .install-note p {
+      font-size: 13px;
+      color: var(--stone);
+      max-width: 100%;
+    }
+
+    .install-note strong { color: var(--cream); }
+
+    /* ─── PARTNERS ──────────────────────────── */
+    .partners-band {
+      background: var(--warm);
+      padding: 64px 24px;
+      text-align: center;
+    }
+
+    .partners-label {
+      font-size: 10px;
+      letter-spacing: .2em;
+      text-transform: uppercase;
+      color: var(--mid);
+      margin-bottom: 32px;
+    }
+
+    .partners-list {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 12px 28px;
+    }
+
+    .partners-list span {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 18px;
+      color: var(--mid);
+      letter-spacing: .06em;
+    }
+
+    /* ─── CTA ───────────────────────────────── */
+    .cta-section {
+      text-align: center;
+      padding: 120px 24px;
+      background: var(--accent);
+    }
+
+    .cta-section h2 {
+      color: var(--cream);
+      font-size: clamp(36px, 6vw, 64px);
+    }
+
+    .cta-section p {
+      margin: 20px auto 0;
+      color: rgba(247,244,239,.65);
+      max-width: 480px;
+    }
+
+    .cta-contact {
+      margin-top: 48px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .cta-name {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 22px;
+      color: var(--cream);
+    }
+
+    .cta-details {
+      font-size: 13px;
+      color: rgba(247,244,239,.6);
+      letter-spacing: .06em;
+    }
+
+    .cta-divider {
+      width: 40px;
+      height: 1px;
+      background: rgba(247,244,239,.3);
+      margin: 20px auto;
+    }
+
+    /* ─── ANIMATIONS ────────────────────────── */
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(24px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    @keyframes scrollPulse {
+      0%, 100% { opacity: .4; }
+      50%       { opacity: 1; }
+    }
+
+    .reveal {
+      opacity: 0;
+      transform: translateY(32px);
+      transition: opacity .7s ease, transform .7s ease;
+    }
+
+    .reveal.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .reveal-delay-1 { transition-delay: .1s; }
+    .reveal-delay-2 { transition-delay: .2s; }
+    .reveal-delay-3 { transition-delay: .3s; }
+  </style>
+</head>
+<body>
+
+<!-- ─── HERO ─────────────────────────────────── -->
+<div class="hero">
+  <p class="hero-eyebrow">Samarbetsförslag · 2026</p>
+  <h1>Villa Sjövik<br /><em>× VELUX</em></h1>
+  <p class="hero-sub">Ett skräddarsytt innehållssamarbete som visar hur VELUX eldrivna rullgardiner förvandlar ett hem – på riktigt.</p>
+  <div class="hero-scroll">
+    <div class="scroll-line"></div>
+    <span>Scrolla</span>
+  </div>
+</div>
+
+<!-- ─── STATS ─────────────────────────────────── -->
+<div class="stats-band">
+  <div class="stats-inner">
+    <div class="reveal">
+      <div class="stat-num">164k</div>
+      <div class="stat-label">Instagram-följare</div>
+    </div>
+    <div class="reveal reveal-delay-1">
+      <div class="stat-num">30k</div>
+      <div class="stat-label">Facebook-följare</div>
+    </div>
+    <div class="reveal reveal-delay-2">
+      <div class="stat-num">194k</div>
+      <div class="stat-label">Total räckvidd</div>
+    </div>
+    <div class="reveal reveal-delay-3">
+      <div class="stat-num">Hem</div>
+      <div class="stat-label">Trädgård & livsstil</div>
+    </div>
+  </div>
+</div>
+
+<!-- ─── KONCEPTET ─────────────────────────────── -->
+<section>
+  <p class="section-label reveal">Konceptet</p>
+  <h2 class="reveal">Tio fönster.<br />En öppen planlösning.</h2>
+  <p class="reveal">Vi planerar att installera VELUX eldrivna ljusdämpande rullgardiner i tio fönster – TV-rummet och det angränsande mat- och vardagsrummet som tillsammans bildar en öppen, sammanhängande yta. En perfekt miljö för att visa produkten i ett verkligt hem, i autentisk användning.</p>
+  <p class="reveal" style="margin-top:16px;">VELUX ansvarar för och bekostar leverans samt installation genom era egna montörer. Villa Sjövik producerar och publicerar allt innehåll.</p>
+</section>
+
+<!-- ─── CONTENT PLAN ──────────────────────────── -->
+<section style="padding-top:0">
+  <p class="section-label reveal">Innehållsplan</p>
+  <h2 class="reveal">Tre delar.<br />En hel berättelse.</h2>
+  <div class="steps">
+    <div class="step reveal">
+      <div class="step-num">1</div>
+      <h3>Planering & förberedelse</h3>
+      <p>Vi mäter fönstren, väljer rätt modell och beställer produkterna. Vi visar processen och skapar en tydlig förväntan inför transformationen.</p>
+      <div class="step-tag">Planering · Mätning · Beställning</div>
+    </div>
+    <div class="step reveal reveal-delay-1">
+      <div class="step-num">2</div>
+      <h3>Installation & resultat</h3>
+      <p>VELUX montörer genomför installationen. Vi dokumenterar processen och det direkta resultatet – från tomma fönster till färdiga, stilrena rullgardiner.</p>
+      <div class="step-tag">Montörer · Installation · Direkt resultat</div>
+    </div>
+    <div class="step reveal reveal-delay-2">
+      <div class="step-num">3</div>
+      <h3>Livet med rullgardinerna</h3>
+      <p>Det verkliga resultatet i vardagen. Morgonljuset, filmkvällen med dämpad belysning, det enkla i att styra alla gardiner med ett knapptryck. Produkten i sin bästa miljö.</p>
+      <div class="step-tag">Vardag · Ljus · Känsla</div>
+    </div>
+  </div>
+</section>
+
+<!-- ─── DELIVERABLES ──────────────────────────── -->
+<section style="background:var(--warm); max-width:100%; padding-left:0; padding-right:0;">
+  <div style="max-width:1000px; margin:0 auto; padding:100px 24px;">
+    <p class="section-label reveal">Vad VELUX får</p>
+    <h2 class="reveal">Innehåll ni äger<br />för alltid.</h2>
+    <div class="delivers-grid">
+      <div class="deliver-card reveal">
+        <div class="deliver-icon">▶</div>
+        <h4>1 Reel — Instagram & Facebook</h4>
+        <p>Publicerad i Villa Sjöviks kanaler med 194 000 följare inom hem, trädgård och livsstil.</p>
+      </div>
+      <div class="deliver-card reveal reveal-delay-1">
+        <div class="deliver-icon">◈</div>
+        <h4>2–3 Stories med CTA</h4>
+        <p>Direktlänk till er produkt eller hemsida. Aktivt trafikdrivande mot er köpsida.</p>
+      </div>
+      <div class="deliver-card reveal reveal-delay-2">
+        <div class="deliver-icon">◻</div>
+        <h4>5–10 professionella miljöbilder</h4>
+        <p>Fri och obegränsad nyttjanderätt. Klara att använda i era kanaler, hemsida och digital annonsering.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ─── PRICING ───────────────────────────────── -->
+<div class="pricing-wrap">
+  <div class="pricing-inner">
+    <p class="section-label reveal">Investering</p>
+    <h2 class="reveal">Välj det upplägg<br />som passar er.</h2>
+    <p class="reveal">Vi rekommenderar att börja med paketet för att visa hela berättelsen och nå er målgrupp i flera steg.</p>
+
+    <div class="pricing-cards">
+      <div class="price-card featured reveal">
+        <div class="price-badge">Rekommenderas</div>
+        <div class="price-title">3-delat paket</div>
+        <div class="price-desc">3 Reels · 6–9 Stories · 15–30 bilder</div>
+        <div class="price-original">63 000 kr</div>
+        <div class="price-amount">48 000<span>kr exkl. moms</span></div>
+        <ul class="price-list">
+          <li>3 Reels publicerade på Instagram och Facebook</li>
+          <li>2–3 Stories med CTA per publicering</li>
+          <li>15–30 professionella miljöbilder</li>
+          <li>Fri och obegränsad nyttjanderätt på allt material</li>
+          <li>Hela berättelsen — planering, installation och vardag</li>
+        </ul>
+      </div>
+
+      <div class="price-card reveal reveal-delay-1">
+        <div class="price-title">1 publicering</div>
+        <div class="price-desc">1 Reel · 2–3 Stories · 5–10 bilder</div>
+        <div class="price-amount">22 500<span>kr exkl. moms</span></div>
+        <ul class="price-list">
+          <li>1 Reel publicerad på Instagram och Facebook</li>
+          <li>2–3 Stories med direktlänk och CTA</li>
+          <li>5–10 professionella miljöbilder</li>
+          <li>Fri och obegränsad nyttjanderätt på allt material</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="install-note reveal">
+      <p><strong>Notera:</strong> Ovanstående ersättning avser innehållsproduktion och publicering. Leverans och installation av rullgardinerna genomförs av VELUX egna montörer och ingår som VELUX del av samarbetet.</p>
+    </div>
+  </div>
+</div>
+
+<!-- ─── PARTNERS ──────────────────────────────── -->
+<div class="partners-band">
+  <p class="partners-label reveal">Tidigare samarbeten</p>
+  <div class="partners-list">
+    <span class="reveal">Lexington</span>
+    <span class="reveal reveal-delay-1">Mille Notti</span>
+    <span class="reveal reveal-delay-1">TineK</span>
+    <span class="reveal reveal-delay-2">Vedum Kök & Bad</span>
+    <span class="reveal reveal-delay-2">Markslöjd</span>
+    <span class="reveal reveal-delay-3">Husqvarna</span>
+  </div>
+</div>
+
+<!-- ─── CTA ───────────────────────────────────── -->
+<div class="cta-section">
+  <h2 class="reveal">Ska vi göra<br /><em>något vackert?</em></h2>
+  <p class="reveal">Hör av er för att boka ett kort samtal och gå igenom detaljerna.</p>
+  <div class="cta-divider"></div>
+  <div class="cta-contact reveal">
+    <div class="cta-name">Carin Norberg</div>
+    <div class="cta-details">kontakt@villasjovik.se · 070–65 66 596</div>
+    <div class="cta-details" style="margin-top:4px;">@villasjovik · villasjovik.se</div>
+  </div>
+</div>
+
+<script>
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        e.target.classList.add('visible');
+        observer.unobserve(e.target);
+      }
+    });
+  }, { threshold: 0.12 });
+
+  document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+</script>
+</body>
+</html>
