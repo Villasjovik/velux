@@ -318,9 +318,15 @@
     .d-card h4 { font-family:'Playfair Display',serif;font-size:21px;font-weight:500;margin-bottom:12px; }
     .d-card p { font-size:13px;line-height:1.85;color:rgba(242,237,228,.50); }
 
-    /* Outer cards — persistent elevation shadow (same as hover) */
-    .d-card.d1, .d-card.d3 { border-color:rgba(212,168,75,.35); box-shadow:0 24px 60px rgba(0,0,0,.35); }
+    /* All d-cards — persistent gold elevation (matches hover) */
+    .d-card.d1, .d-card.d2, .d-card.d3 { border-color:rgba(212,168,75,.35); box-shadow:0 24px 60px rgba(0,0,0,.35); }
     .ep-card.d1, .ep-card.d3 { box-shadow:0 32px 72px rgba(12,10,9,.12); border-color:rgba(61,90,79,.25); }
+
+    /* Inward lean after reveal — specificity 0-3-0 beats .rv.v (0-2-0), so the lean wins */
+    .d-card.d1.v,  .ep-card.d1.v { transform:perspective(1300px) rotateY(9deg); }
+    .d-card.d3.v,  .ep-card.d3.v { transform:perspective(1300px) rotateY(-9deg); }
+    .p-card.feat.v                { transform:perspective(1300px) rotateY(8deg); }
+    .p-card.d1.v                  { transform:perspective(1300px) rotateY(-8deg); }
 
     /* D-card staggered shimmer sweep */
     .d-card::after {
@@ -375,7 +381,7 @@
       transition:transform .4s var(--ease),border-color .4s,box-shadow .4s;
     }
     .p-card::before { content:'';position:absolute;top:0;left:0;right:0;height:1px;background:linear-gradient(90deg,transparent,rgba(255,255,255,.12),transparent); }
-    .p-card:hover { transform:translateY(-8px);box-shadow:0 32px 64px rgba(0,0,0,.55); }
+    .p-card:hover { box-shadow:0 32px 64px rgba(0,0,0,.55); }
     .p-card.feat { border-color:rgba(212,168,75,.45);background:linear-gradient(145deg,rgba(212,168,75,.09) 0%,rgba(212,168,75,.03) 100%); }
     .p-card.feat::before { background:linear-gradient(90deg,transparent,var(--gold),transparent);opacity:.7;height:2px; }
     .p-card.feat::after { content:'';position:absolute;inset:-1px;border-radius:22px;border:1px solid rgba(212,168,75,.4);animation:pulse-ring 3s ease-in-out infinite;pointer-events:none; }
@@ -867,26 +873,7 @@ const cuObs=new IntersectionObserver(entries=>{
 },{threshold:0.7});
 document.querySelectorAll('.cu').forEach(el=>cuObs.observe(el));
 
-/* ── INWARD LEAN FOR OUTER CARDS (via JS after reveal) ─── */
-document.querySelectorAll('.d-card.d1,.d-card.d3,.ep-card.d1,.ep-card.d3').forEach(card=>{
-  const tilt = card.classList.contains('d1')
-    ? 'perspective(1300px) rotateY(9deg)'
-    : 'perspective(1300px) rotateY(-9deg)';
-  card.dataset.defaultTilt = tilt;
-  const leanObs = new IntersectionObserver(entries=>{
-    if(entries[0].isIntersecting){
-      leanObs.disconnect();
-      /* Wait for reveal animation to finish, then tilt in smoothly */
-      const delay = card.classList.contains('d1') ? 920 : 1120;
-      setTimeout(()=>{
-        card.style.transition='transform .65s cubic-bezier(.16,1,.3,1)';
-        card.style.transform = tilt;
-        setTimeout(()=>{ card.style.transition=''; }, 700);
-      }, delay);
-    }
-  },{threshold:0.3});
-  leanObs.observe(card);
-});
+/* Inward lean is handled purely via CSS (.d-card.d1.v etc.) */
 
 /* ── 3D TILT ON HOVER ────────────────────────── */
 if(!matchMedia('(pointer:coarse)').matches){
@@ -905,10 +892,10 @@ if(!matchMedia('(pointer:coarse)').matches){
         card.style.setProperty('--my',((e.clientY-r.top)/r.height*100).toFixed(1)+'%');
       }
     });
-    /* Restore CSS transition on leave → smooth return to inward lean (or flat for middle) */
+    /* Clear inline transform on leave → CSS inward lean takes over with smooth transition */
     card.addEventListener('mouseleave',()=>{
       card.style.transitionProperty='';
-      card.style.transform = card.dataset.defaultTilt || '';
+      card.style.transform='';
     });
   });
 }
