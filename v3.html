@@ -36,37 +36,65 @@
     body.hovering #cur { width:5px;height:5px; }
     body.hovering #cur-ring { width:54px;height:54px;border-color:rgba(212,168,75,.75); }
 
-    /* ─── SIDE NAV ───────────────────────────── */
+    /* ─── SIDE NAV — Dynamic Island ─────────────── */
     #sidenav {
-      position:fixed; right:22px; top:50%; transform:translateY(-50%);
-      z-index:9000; display:flex; flex-direction:column; align-items:flex-end;
-      gap:8px; pointer-events:none;
+      position:fixed; right:18px; top:50%; transform:translateY(-50%);
+      z-index:9000;
+      /* Glass pill — Dynamic Island style */
+      background:rgba(12,40,22,.62);
+      backdrop-filter:blur(28px) saturate(140%);
+      -webkit-backdrop-filter:blur(28px) saturate(140%);
+      border:1px solid rgba(255,255,255,.12);
+      border-radius:100px;
+      padding:14px 7px;
+      display:flex; flex-direction:column; align-items:center; gap:7px;
+      box-shadow:0 8px 36px rgba(0,0,0,.32), inset 0 1px 0 rgba(255,255,255,.1), inset 0 -1px 0 rgba(0,0,0,.12);
+      transition:background .4s, border-color .4s, box-shadow .4s;
+    }
+    body.on-light #sidenav {
+      background:rgba(242,237,228,.72);
+      border-color:rgba(12,10,9,.12);
+      box-shadow:0 8px 36px rgba(0,0,0,.10), inset 0 1px 0 rgba(255,255,255,.9), inset 0 -1px 0 rgba(0,0,0,.05);
     }
     .sn-item {
-      pointer-events:auto; display:flex; align-items:center; gap:10px;
-      cursor:pointer; padding:4px 0;
+      pointer-events:auto; position:relative;
+      display:flex; align-items:center; justify-content:center;
+      cursor:pointer; padding:2px 0;
     }
     .sn-label {
-      font-family:'Inter',sans-serif; font-size:9px; letter-spacing:.22em;
-      text-transform:uppercase; color:var(--gold);
-      opacity:0; transform:translateX(6px);
-      transition:opacity .2s, transform .25s var(--ease);
+      /* Floating glass badge to the left */
+      position:absolute; right:calc(100% + 22px);
+      font-family:'Inter',sans-serif; font-size:9px; letter-spacing:.18em;
+      text-transform:uppercase; color:rgba(242,237,228,.9);
+      background:rgba(12,40,22,.75);
+      backdrop-filter:blur(16px); -webkit-backdrop-filter:blur(16px);
+      border:1px solid rgba(255,255,255,.1);
+      border-radius:100px; padding:5px 12px;
+      opacity:0; transform:translateX(8px);
+      transition:opacity .18s, transform .22s var(--ease);
       white-space:nowrap; pointer-events:none;
+      box-shadow:0 4px 16px rgba(0,0,0,.2);
+    }
+    body.on-light .sn-label {
+      color:rgba(12,10,9,.78); background:rgba(242,237,228,.88);
+      border-color:rgba(12,10,9,.1);
     }
     .sn-item:hover .sn-label { opacity:1; transform:translateX(0); }
     .sn-track {
-      width:4px; height:4px; border-radius:50%;
-      background:rgba(212,168,75,.22);
-      transition:height .4s var(--ease), border-radius .4s, background .3s, opacity .3s;
+      width:5px; height:5px; border-radius:50%;
+      background:rgba(255,255,255,.22);
+      transition:height .45s var(--ease), border-radius .45s, background .3s, box-shadow .3s;
       flex-shrink:0;
     }
-    .sn-item.active .sn-track { height:28px; border-radius:2px; background:var(--gold); animation:snPulse 2.5s ease-in-out infinite; }
-    .sn-item:hover .sn-track { background:rgba(212,168,75,.65); }
-    @keyframes snPulse { 0%,100%{opacity:1;} 50%{opacity:.55;} }
-    body.on-light .sn-track         { background:rgba(61,90,79,.22); }
-    body.on-light .sn-item.active .sn-track { background:var(--green); }
-    body.on-light .sn-item:hover .sn-track  { background:rgba(61,90,79,.65); }
-    body.on-light .sn-label         { color:var(--green); }
+    .sn-item.active .sn-track {
+      height:26px; border-radius:3px;
+      background:var(--gold);
+      box-shadow:0 0 12px rgba(212,168,75,.4);
+    }
+    .sn-item:hover .sn-track { background:rgba(255,255,255,.5); }
+    body.on-light .sn-track { background:rgba(61,90,79,.28); }
+    body.on-light .sn-item.active .sn-track { background:var(--green); box-shadow:0 0 12px rgba(61,90,79,.3); }
+    body.on-light .sn-item:hover .sn-track { background:rgba(61,90,79,.55); }
     @media (max-width:860px) { #sidenav { display:none; } }
 
     /* ─── NOISE ──────────────────────────────── */
@@ -289,6 +317,32 @@
     .d-card.v .d-icon line { stroke-dashoffset:0; }
     .d-card h4 { font-family:'Playfair Display',serif;font-size:21px;font-weight:500;margin-bottom:12px; }
     .d-card p { font-size:13px;line-height:1.85;color:rgba(242,237,228,.50); }
+
+    /* D-card staggered shimmer sweep */
+    .d-card::after {
+      content:''; position:absolute; top:0; left:0;
+      width:55%; height:100%;
+      background:linear-gradient(105deg, transparent 0%, rgba(255,255,255,.04) 35%, rgba(255,255,255,.10) 50%, rgba(255,255,255,.04) 65%, transparent 100%);
+      transform:translateX(-150%) skewX(-12deg);
+      pointer-events:none; z-index:5;
+    }
+    @keyframes shimmerSweep {
+      0%   { transform:translateX(-150%) skewX(-12deg); opacity:0; }
+      8%   { opacity:1; }
+      92%  { opacity:1; }
+      100% { transform:translateX(310%) skewX(-12deg); opacity:0; }
+    }
+    @keyframes borderGlow {
+      0%,100% { border-color:var(--border); box-shadow:none; transform:scale(1); }
+      50%     { border-color:rgba(212,168,75,.42); box-shadow:0 0 0 2px rgba(212,168,75,.07), 0 28px 60px rgba(0,0,0,.32); transform:scale(1.022); }
+    }
+    @keyframes numPop {
+      0%,100% { color:rgba(212,168,75,.06); }
+      50%     { color:rgba(212,168,75,.20); }
+    }
+    .d-card.do-shimmer { animation:borderGlow 1.3s var(--ease) both; }
+    .d-card.do-shimmer::after { animation:shimmerSweep 1s .1s linear forwards; }
+    .d-card.do-shimmer .d-bg-num { animation:numPop 1.3s var(--ease); }
 
     /* ══════════════════════════════════════════
        PRICING — charcoal + gold ambience
@@ -850,6 +904,21 @@ addEventListener('scroll',()=>{
   if(heroLock&&scrollY<innerHeight)
     heroLock.style.transform=`translateY(${scrollY*.18}px)`;
 },{passive:true});
+
+/* ── D-CARD STAGGERED SHIMMER ──────────────── */
+const shimmerCards = document.querySelectorAll('.d-card');
+const shimmerObs = new IntersectionObserver(entries => {
+  if(entries.some(e => e.isIntersecting)) {
+    shimmerObs.disconnect();
+    shimmerCards.forEach((card, i) => {
+      setTimeout(() => {
+        card.classList.add('do-shimmer');
+        setTimeout(() => card.classList.remove('do-shimmer'), 1400);
+      }, 500 + i * 620);
+    });
+  }
+}, {threshold:0.45});
+if(shimmerCards[0]) shimmerObs.observe(shimmerCards[0]);
 </script>
 </body>
 </html>
