@@ -192,7 +192,10 @@
     .ws .w {
       display:inline-block; overflow:hidden; vertical-align:bottom;
       /* Extra room below baseline for descenders (g, p, y, q, å etc) */
-      padding-bottom:0.28em; margin-bottom:-0.28em;
+      /* Extra room for descenders (g,å,f) AND italic swash chars (f in Playfair italic) */
+      padding-bottom:0.42em; margin-bottom:-0.42em;
+      padding-left:0.08em;   margin-left:-0.08em;
+      padding-right:0.08em;
     }
     .ws .w i { display:inline-block;font-style:inherit;transform:translateY(108%);transition:transform .85s var(--ease); }
     .ws.v .w i { transform:translateY(0); }
@@ -338,7 +341,10 @@
        PARTNERS — cream, centered, full color
     ══════════════════════════════════════════ */
     .partners { position:relative;z-index:2;padding:100px 0 96px;background:var(--cream);overflow:hidden; }
-    .partners::after { content:'';position:absolute;top:0;left:0;right:0;height:3px;background:linear-gradient(90deg,transparent,var(--green),var(--gold),var(--green),transparent);opacity:.4; }
+    /* Top gold accent line */
+    .partners::after { content:'';position:absolute;top:0;left:0;right:0;height:2px;z-index:2;background:linear-gradient(90deg,transparent 0%,rgba(212,168,75,.5) 30%,rgba(212,168,75,.8) 50%,rgba(212,168,75,.5) 70%,transparent 100%); }
+    /* Bottom gold accent line */
+    .partners-gold-line-b { position:absolute;bottom:0;left:0;right:0;height:2px;z-index:2;background:linear-gradient(90deg,transparent 0%,rgba(212,168,75,.5) 30%,rgba(212,168,75,.8) 50%,rgba(212,168,75,.5) 70%,transparent 100%); }
     .partners-head { text-align:center;margin-bottom:52px;position:relative;z-index:1;display:flex;flex-direction:column;align-items:center;gap:12px; }
     .partners-lbl { font-size:9px;letter-spacing:.28em;text-transform:uppercase;font-weight:600;color:var(--green); }
     .partners-rule { width:32px;height:1px;background:linear-gradient(90deg,transparent,var(--green),transparent); }
@@ -594,7 +600,7 @@
         <div class="d-bg-num">2</div>
         <svg class="d-icon" viewBox="0 0 24 24"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
         <h4>6 Stories med CTA</h4>
-        <p>2 Stories per publicering med direktlänk till er produkt. Tre separata trafikspiksar mot er köpsida.</p>
+        <p>2 Stories per publicering med swipe-up länk direkt till er produktsida — tre separata trafikpikar till er köpsida.</p>
       </div>
       <div class="d-card rv d3">
         <div class="d-bg-num">3</div>
@@ -659,6 +665,7 @@
 
 <!-- ═══ PARTNERS — cream, centered, full color ════ -->
 <div class="partners cream-dots" id="sec-partners">
+  <div class="partners-gold-line-b"></div>
   <div class="partners-head rv">
     <span class="partners-lbl">Tidigare samarbeten</span>
     <div class="partners-rule"></div>
@@ -688,7 +695,7 @@
       <span class="w"><i>Ska&nbsp;</i></span><span class="w"><i>vi&nbsp;</i></span><span class="w"><i>göra</i></span>
       <br><em><span class="w"><i>något&nbsp;</i></span><span class="w"><i>vackert?</i></span></em>
     </h2>
-    <p class="cta-sub rv">Hör av er för att boka ett kort samtal och gå igenom detaljerna.</p>
+    <p class="cta-sub rv">Hör av er — vi tar ett kort samtal och går igenom detaljerna.</p>
     <!-- Animated gold line -->
     <div class="cta-line-wrap rv d1">
       <svg class="cta-line-svg" viewBox="0 0 60 2" preserveAspectRatio="none">
