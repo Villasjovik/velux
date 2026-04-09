@@ -75,25 +75,24 @@
       font-style: italic;
       color: var(--gold);
       font-family: 'Cormorant Garamond', serif;
-      font-size: clamp(52px, 9vw, 110px);
+      font-size: clamp(36px, 6vw, 72px);
       font-weight: 400;
-      line-height: 1;
+      line-height: 1.2;
       display: block;
+      text-align: center;
       opacity: 0;
       animation: fadeUp .9s .4s forwards;
     }
 
     .hero-logo-row {
       display: flex;
-      align-items: center;
       justify-content: center;
-      gap: 20px;
       opacity: 0;
       animation: fadeUp .9s .4s forwards;
     }
 
     .hero-logo {
-      height: clamp(36px, 6vw, 72px);
+      height: clamp(52px, 9vw, 110px);
       display: block;
     }
 
@@ -521,8 +520,8 @@
 <div class="hero">
   <p class="hero-eyebrow">Samarbetsförslag · 2026</p>
   <h1>Villa Sjövik</h1>
+  <span class="hero-x">×</span>
   <div class="hero-logo-row">
-    <span class="hero-x">×</span>
     <img src="velux-logo.png" alt="VELUX" class="hero-logo" />
   </div>
   <p class="hero-sub">Ett skräddarsytt innehållssamarbete som visar hur VELUX eldrivna rullgardiner förvandlar ett hem – på riktigt.</p>
