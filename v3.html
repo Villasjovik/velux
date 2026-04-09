@@ -269,7 +269,7 @@
     .plan-head { margin-bottom:72px; }
 
     .episode-grid { display:grid;grid-template-columns:repeat(3,1fr);gap:28px; }
-    .ep-card { background:#fff;border:1px solid rgba(12,10,9,.08);border-radius:20px;overflow:hidden;display:flex;flex-direction:column;transition:box-shadow .45s var(--ease),border-color .35s;cursor:default; }
+    .ep-card { background:#fff;border:1px solid rgba(12,10,9,.08);border-radius:20px;overflow:hidden;display:flex;flex-direction:column;transition:box-shadow .45s var(--ease),border-color .35s,transform .55s var(--ease);cursor:default; }
     .ep-card:hover { box-shadow:0 32px 72px rgba(12,10,9,.12);border-color:rgba(61,90,79,.25); }
     .ep-band { height:5px;background:linear-gradient(90deg,var(--green),var(--green-lt)); }
     .ep-band.b2 { background:linear-gradient(90deg, #2D6B5C, var(--green)); }
@@ -300,7 +300,7 @@
     ══════════════════════════════════════════ */
     .delivers-sec { background:linear-gradient(180deg, #163A24 0%, #0C2619 100%); }
     .delivers-grid { display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:16px;margin-top:56px; }
-    .d-card { padding:44px 40px;border:1px solid var(--border);border-radius:20px;background:rgba(255,255,255,.035);position:relative;overflow:hidden;transition:border-color .4s,box-shadow .4s;cursor:default; }
+    .d-card { padding:44px 40px;border:1px solid var(--border);border-radius:20px;background:rgba(255,255,255,.035);position:relative;overflow:hidden;transition:border-color .4s,box-shadow .4s,transform .55s var(--ease);cursor:default; }
     .d-card::before { content:'';position:absolute;inset:0;border-radius:20px;background:radial-gradient(circle at var(--mx,50%) var(--my,50%),rgba(212,168,75,.09),transparent 55%);opacity:0;transition:opacity .3s; }
     .d-card:hover { border-color:rgba(212,168,75,.35);box-shadow:0 24px 60px rgba(0,0,0,.35); }
     .d-card:hover::before { opacity:1; }
@@ -318,6 +318,10 @@
     .d-card h4 { font-family:'Playfair Display',serif;font-size:21px;font-weight:500;margin-bottom:12px; }
     .d-card p { font-size:13px;line-height:1.85;color:rgba(242,237,228,.50); }
 
+    /* Default inward lean for outer cards (d1 = left leans right, d3 = right leans left) */
+    .d-card.d1, .ep-card.d1 { transform:perspective(1300px) rotateY(9deg); }
+    .d-card.d3, .ep-card.d3 { transform:perspective(1300px) rotateY(-9deg); }
+
     /* D-card staggered shimmer sweep */
     .d-card::after {
       content:''; position:absolute; top:0; left:0;
@@ -333,14 +337,14 @@
       100% { transform:translateX(310%) skewX(-12deg); opacity:0; }
     }
     @keyframes borderGlow {
-      0%,100% { border-color:var(--border); box-shadow:none; transform:scale(1); }
-      50%     { border-color:rgba(212,168,75,.42); box-shadow:0 0 0 2px rgba(212,168,75,.07), 0 28px 60px rgba(0,0,0,.32); transform:scale(1.022); }
+      0%,100% { border-color:var(--border); box-shadow:none; }
+      50%     { border-color:rgba(212,168,75,.42); box-shadow:0 0 0 2px rgba(212,168,75,.07), 0 28px 60px rgba(0,0,0,.32); }
     }
     @keyframes numPop {
       0%,100% { color:rgba(212,168,75,.06); }
       50%     { color:rgba(212,168,75,.20); }
     }
-    .d-card.do-shimmer { animation:borderGlow 1.3s var(--ease) both; }
+    .d-card.do-shimmer { animation:borderGlow 1.3s var(--ease); }
     .d-card.do-shimmer::after { animation:shimmerSweep 1s .1s linear forwards; }
     .d-card.do-shimmer .d-bg-num { animation:numPop 1.3s var(--ease); }
 
@@ -561,7 +565,6 @@
         <line class="wi wi2" x1="22" y1="3" x2="22" y2="41"/>
         <line class="wi wi3" x1="3" y1="22" x2="41" y2="22"/>
       </svg>
-      <span class="concept-tagline">10 fönster · VELUX Blackout · Elektriska</span>
     </div>
     <div class="concept-grid">
       <div class="glass-card rv d2">
@@ -875,6 +878,10 @@ document.querySelectorAll('.cu').forEach(el=>cuObs.observe(el));
 /* ── 3D TILT ON HOVER ────────────────────────── */
 if(!matchMedia('(pointer:coarse)').matches){
   document.querySelectorAll('.d-card,.p-card,.ep-card').forEach(card=>{
+    /* Disable transform-transition on enter so tilt tracks mouse instantly */
+    card.addEventListener('mouseenter',()=>{
+      card.style.transitionProperty='border-color,box-shadow';
+    });
     card.addEventListener('mousemove',e=>{
       const r=card.getBoundingClientRect();
       const dx=(e.clientX-r.left-r.width/2)/(r.width/2);
@@ -885,7 +892,11 @@ if(!matchMedia('(pointer:coarse)').matches){
         card.style.setProperty('--my',((e.clientY-r.top)/r.height*100).toFixed(1)+'%');
       }
     });
-    card.addEventListener('mouseleave',()=>{card.style.transform='';});
+    /* Restore transition on leave so the return to inward-lean is smooth */
+    card.addEventListener('mouseleave',()=>{
+      card.style.transitionProperty='';
+      card.style.transform='';
+    });
   });
 }
 
