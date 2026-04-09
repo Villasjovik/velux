@@ -261,24 +261,30 @@
     .partners-label { font-size: 10px; letter-spacing: .2em; text-transform: uppercase; color: var(--muted); margin-bottom: 40px; }
     .ticker-wrapper {
       overflow: hidden; width: 100%;
-      -webkit-mask-image: linear-gradient(to right, transparent 0%, black 12%, black 88%, transparent 100%);
-      mask-image: linear-gradient(to right, transparent 0%, black 12%, black 88%, transparent 100%);
+      -webkit-mask-image: linear-gradient(to right, transparent 0%, black 10%, black 90%, transparent 100%);
+      mask-image: linear-gradient(to right, transparent 0%, black 10%, black 90%, transparent 100%);
     }
     .ticker-track {
       display: flex; align-items: center;
-      gap: 64px; width: max-content;
-      animation: ticker 28s linear infinite;
+      gap: 0; width: max-content;
+      animation: ticker 32s linear infinite;
+      will-change: transform;
     }
     .ticker-track:hover { animation-play-state: paused; }
-    .ticker-logo {
-      height: 40px; width: auto; max-width: 140px;
-      object-fit: contain;
-      filter: grayscale(1) opacity(0.45);
-      mix-blend-mode: multiply;
-      transition: filter .4s ease;
-      flex-shrink: 0;
+    .ticker-item {
+      width: 160px; height: 52px; flex-shrink: 0;
+      display: flex; align-items: center; justify-content: center;
+      padding: 0 20px;
     }
-    .ticker-logo:hover { filter: grayscale(0) opacity(0.9); }
+    .ticker-logo {
+      max-width: 120px; max-height: 44px;
+      width: auto; height: auto;
+      object-fit: contain;
+      opacity: 0.65;
+      mix-blend-mode: multiply;
+      transition: opacity .3s ease;
+    }
+    .ticker-item:hover .ticker-logo { opacity: 1; }
     @keyframes ticker {
       from { transform: translateX(0); }
       to   { transform: translateX(-50%); }
@@ -489,19 +495,19 @@
   <div class="ticker-wrapper">
     <div class="ticker-track">
       <!-- Set 1 -->
-      <img src="logos/lexington.png"    alt="Lexington"    class="ticker-logo" />
-      <img src="logos/mille_notti.avif" alt="Mille Notti"  class="ticker-logo" />
-      <img src="logos/tinekhome.jpg"    alt="TineK"        class="ticker-logo" />
-      <img src="logos/vedum.png"        alt="Vedum Kök & Bad" class="ticker-logo" />
-      <img src="logos/markslojd.avif"   alt="Markslöjd"    class="ticker-logo" />
-      <img src="logos/husqvarna.jpg"    alt="Husqvarna"    class="ticker-logo" />
-      <!-- Set 2 — duplicate for seamless loop -->
-      <img src="logos/lexington.png"    alt="" aria-hidden="true" class="ticker-logo" />
-      <img src="logos/mille_notti.avif" alt="" aria-hidden="true" class="ticker-logo" />
-      <img src="logos/tinekhome.jpg"    alt="" aria-hidden="true" class="ticker-logo" />
-      <img src="logos/vedum.png"        alt="" aria-hidden="true" class="ticker-logo" />
-      <img src="logos/markslojd.avif"   alt="" aria-hidden="true" class="ticker-logo" />
-      <img src="logos/husqvarna.jpg"    alt="" aria-hidden="true" class="ticker-logo" />
+      <div class="ticker-item"><img src="logos/lexington.png"    alt="Lexington"       class="ticker-logo" /></div>
+      <div class="ticker-item"><img src="logos/mille_notti.avif" alt="Mille Notti"     class="ticker-logo" /></div>
+      <div class="ticker-item"><img src="logos/tinekhome.jpg"    alt="TineK"           class="ticker-logo" /></div>
+      <div class="ticker-item"><img src="logos/vedum.png"        alt="Vedum Kök & Bad" class="ticker-logo" /></div>
+      <div class="ticker-item"><img src="logos/markslojd.avif"   alt="Markslöjd"       class="ticker-logo" /></div>
+      <div class="ticker-item"><img src="logos/husqvarna.jpg"    alt="Husqvarna"       class="ticker-logo" /></div>
+      <!-- Set 2 — seamless loop duplicate -->
+      <div class="ticker-item" aria-hidden="true"><img src="logos/lexington.png"    alt="" class="ticker-logo" /></div>
+      <div class="ticker-item" aria-hidden="true"><img src="logos/mille_notti.avif" alt="" class="ticker-logo" /></div>
+      <div class="ticker-item" aria-hidden="true"><img src="logos/tinekhome.jpg"    alt="" class="ticker-logo" /></div>
+      <div class="ticker-item" aria-hidden="true"><img src="logos/vedum.png"        alt="" class="ticker-logo" /></div>
+      <div class="ticker-item" aria-hidden="true"><img src="logos/markslojd.avif"   alt="" class="ticker-logo" /></div>
+      <div class="ticker-item" aria-hidden="true"><img src="logos/husqvarna.jpg"    alt="" class="ticker-logo" /></div>
     </div>
   </div>
 </div>
