@@ -256,23 +256,54 @@
     .install-note p { font-size: 13px; color: rgba(250,250,249,.5); max-width: 100%; line-height: 1.65; }
     .install-note strong { color: rgba(250,250,249,.8); }
 
-    /* ─── PARTNERS ──────────────────────────── */
-    .partners-section { position: relative; z-index: 1; padding: 64px 24px; text-align: center; }
-    .partners-label { font-size: 10px; letter-spacing: .2em; text-transform: uppercase; color: var(--muted); margin-bottom: 32px; }
-    .partners-list { display: flex; flex-wrap: wrap; justify-content: center; gap: 12px 32px; }
-    .partners-list span { font-family: 'Playfair Display', serif; font-size: 19px; color: var(--muted); letter-spacing: .04em; transition: color var(--morph); cursor: default; }
-    .partners-list span:hover { color: var(--gold); }
+    /* ─── PARTNERS TICKER ───────────────────── */
+    .partners-section { position: relative; z-index: 1; padding: 64px 0; text-align: center; }
+    .partners-label { font-size: 10px; letter-spacing: .2em; text-transform: uppercase; color: var(--muted); margin-bottom: 40px; }
+    .ticker-wrapper {
+      overflow: hidden; width: 100%;
+      -webkit-mask-image: linear-gradient(to right, transparent 0%, black 12%, black 88%, transparent 100%);
+      mask-image: linear-gradient(to right, transparent 0%, black 12%, black 88%, transparent 100%);
+    }
+    .ticker-track {
+      display: flex; align-items: center;
+      gap: 64px; width: max-content;
+      animation: ticker 28s linear infinite;
+    }
+    .ticker-track:hover { animation-play-state: paused; }
+    .ticker-logo {
+      height: 40px; width: auto; max-width: 140px;
+      object-fit: contain;
+      filter: grayscale(1) opacity(0.45);
+      mix-blend-mode: multiply;
+      transition: filter .4s ease;
+      flex-shrink: 0;
+    }
+    .ticker-logo:hover { filter: grayscale(0) opacity(0.9); }
+    @keyframes ticker {
+      from { transform: translateX(0); }
+      to   { transform: translateX(-50%); }
+    }
 
     /* ─── CTA ───────────────────────────────── */
     .cta-section {
       position: relative; z-index: 1; padding: 120px 24px;
       text-align: center; overflow: hidden;
-    }
-    .cta-section::before {
-      content: ''; position: absolute; inset: 0;
       background: #3D5A4F;
-      z-index: -1;
     }
+    /* CTA blobs — same recipe as hero */
+    .cta-blob-canvas {
+      position: absolute; inset: 0; z-index: 0;
+      pointer-events: none; overflow: hidden;
+    }
+    .cta-blob {
+      position: absolute; border-radius: 50%;
+      filter: blur(90px); opacity: .40;
+      animation: blobFloat 14s ease-in-out infinite;
+    }
+    .cta-blob-1 { width: 550px; height: 550px; background: radial-gradient(circle, #6BAF87, #3D5A4F); bottom: -180px; right: -80px; animation-delay: -2s; }
+    .cta-blob-2 { width: 420px; height: 420px; background: radial-gradient(circle, #2D4A3F, #1E3530); top: -120px; left: -100px; animation-delay: -7s; }
+    .cta-blob-3 { width: 320px; height: 320px; background: radial-gradient(circle, #8ABF9E, #4E7A63); top: 30%; right: 15%; animation-delay: -11s; }
+    .cta-inner { position: relative; z-index: 1; }
     .cta-section h2 { color: #FAFAF9; }
     .cta-section .body { color: rgba(250,250,249,.7); margin: 0 auto; }
     .cta-divider { width: 40px; height: 2px; background: var(--gold); margin: 36px auto; }
@@ -292,8 +323,9 @@
     .reveal-d3 { transition-delay: .3s; }
 
     @media (prefers-reduced-motion: reduce) {
-      .blob { animation: none; }
+      .blob, .cta-blob { animation: none; }
       .scroll-arrow { animation: none; }
+      .ticker-track { animation: none; }
       .reveal { opacity: 1; transform: none; transition: none; }
     }
   </style>
@@ -454,25 +486,42 @@
 <!-- ─── PARTNERS ──────────────────────────────── -->
 <div class="partners-section">
   <p class="partners-label reveal">Tidigare samarbeten</p>
-  <div class="partners-list">
-    <span class="reveal">Lexington</span>
-    <span class="reveal reveal-d1">Mille Notti</span>
-    <span class="reveal reveal-d1">TineK</span>
-    <span class="reveal reveal-d2">Vedum Kök & Bad</span>
-    <span class="reveal reveal-d2">Markslöjd</span>
-    <span class="reveal reveal-d3">Husqvarna</span>
+  <div class="ticker-wrapper">
+    <div class="ticker-track">
+      <!-- Set 1 -->
+      <img src="logos/lexington.png"    alt="Lexington"    class="ticker-logo" />
+      <img src="logos/mille_notti.avif" alt="Mille Notti"  class="ticker-logo" />
+      <img src="logos/tinekhome.jpg"    alt="TineK"        class="ticker-logo" />
+      <img src="logos/vedum.png"        alt="Vedum Kök & Bad" class="ticker-logo" />
+      <img src="logos/markslojd.avif"   alt="Markslöjd"    class="ticker-logo" />
+      <img src="logos/husqvarna.jpg"    alt="Husqvarna"    class="ticker-logo" />
+      <!-- Set 2 — duplicate for seamless loop -->
+      <img src="logos/lexington.png"    alt="" aria-hidden="true" class="ticker-logo" />
+      <img src="logos/mille_notti.avif" alt="" aria-hidden="true" class="ticker-logo" />
+      <img src="logos/tinekhome.jpg"    alt="" aria-hidden="true" class="ticker-logo" />
+      <img src="logos/vedum.png"        alt="" aria-hidden="true" class="ticker-logo" />
+      <img src="logos/markslojd.avif"   alt="" aria-hidden="true" class="ticker-logo" />
+      <img src="logos/husqvarna.jpg"    alt="" aria-hidden="true" class="ticker-logo" />
+    </div>
   </div>
 </div>
 
 <!-- ─── CTA ───────────────────────────────────── -->
 <div class="cta-section">
-  <h2 class="reveal">Ska vi göra<br /><em>något vackert?</em></h2>
-  <p class="body reveal">Hör av er för att boka ett kort samtal och gå igenom detaljerna.</p>
-  <div class="cta-divider"></div>
-  <div class="reveal">
-    <div class="cta-name">Carin Norberg</div>
-    <div class="cta-details">kontakt@villasjovik.se · 070–65 66 596</div>
-    <div class="cta-details" style="margin-top:4px;">@villasjovik · villasjovik.se</div>
+  <div class="cta-blob-canvas" aria-hidden="true">
+    <div class="cta-blob cta-blob-1"></div>
+    <div class="cta-blob cta-blob-2"></div>
+    <div class="cta-blob cta-blob-3"></div>
+  </div>
+  <div class="cta-inner">
+    <h2 class="reveal">Ska vi göra<br /><em>något vackert?</em></h2>
+    <p class="body reveal">Hör av er för att boka ett kort samtal och gå igenom detaljerna.</p>
+    <div class="cta-divider"></div>
+    <div class="reveal">
+      <div class="cta-name">Carin Norberg</div>
+      <div class="cta-details">kontakt@villasjovik.se · 070–65 66 596</div>
+      <div class="cta-details" style="margin-top:4px;">@villasjovik · villasjovik.se</div>
+    </div>
   </div>
 </div>
 
