@@ -9,11 +9,11 @@
     *, *::before, *::after { box-sizing:border-box; margin:0; padding:0; }
 
     :root {
-      --bg:        #0D1F2D;
-      --bg2:       #091926;
+      --bg:        #0F2D1C;
+      --bg2:       #0C2818;
       --cream:     #F2EDE4;
-      --teal:      #1E6E78;
-      --teal-lt:   #3BBFB0;
+      --green:     #3D5A4F;
+      --green-lt:  #6BAF87;
       --gold:      #D4A84B;
       --gold-dim:  rgba(212,168,75,.35);
       --gold-glow: rgba(212,168,75,.2);
@@ -31,16 +31,16 @@
     /* ─── CURSOR ─────────────────────────────── */
     #cur      { position:fixed;z-index:9999;pointer-events:none;width:9px;height:9px;background:var(--gold);border-radius:50%;transform:translate(-50%,-50%);transition:width .3s var(--ease),height .3s var(--ease),background .25s; }
     #cur-ring { position:fixed;z-index:9998;pointer-events:none;width:36px;height:36px;border:1px solid rgba(212,168,75,.4);border-radius:50%;transform:translate(-50%,-50%);transition:width .4s var(--ease),height .4s var(--ease),border-color .3s; }
-    body.on-light #cur { background:var(--teal); }
-    body.on-light #cur-ring { border-color:rgba(30,110,120,.5); }
+    body.on-light #cur { background:var(--green); }
+    body.on-light #cur-ring { border-color:rgba(61,90,79,.5); }
     body.hovering #cur { width:5px;height:5px; }
     body.hovering #cur-ring { width:54px;height:54px;border-color:rgba(212,168,75,.75); }
 
-    /* ─── SIDE NAV ─────────────────────────────── */
+    /* ─── SIDE NAV — Dynamic Island ─────────────── */
     #sidenav {
       position:fixed; right:18px; top:50%; transform:translateY(-50%);
       z-index:9000;
-      background:rgba(9,25,38,.62);
+      background:rgba(12,40,22,.62);
       backdrop-filter:blur(28px) saturate(140%);
       -webkit-backdrop-filter:blur(28px) saturate(140%);
       border:1px solid rgba(255,255,255,.12);
@@ -55,12 +55,16 @@
       border-color:rgba(12,10,9,.12);
       box-shadow:0 8px 36px rgba(0,0,0,.10), inset 0 1px 0 rgba(255,255,255,.9), inset 0 -1px 0 rgba(0,0,0,.05);
     }
-    .sn-item { pointer-events:auto;position:relative;display:flex;align-items:center;justify-content:center;cursor:pointer;padding:2px 0; }
+    .sn-item {
+      pointer-events:auto; position:relative;
+      display:flex; align-items:center; justify-content:center;
+      cursor:pointer; padding:2px 0;
+    }
     .sn-label {
       position:absolute; right:calc(100% + 22px);
       font-family:'Inter',sans-serif; font-size:9px; letter-spacing:.18em;
       text-transform:uppercase; color:rgba(242,237,228,.9);
-      background:rgba(9,25,38,.75);
+      background:rgba(12,40,22,.75);
       backdrop-filter:blur(16px); -webkit-backdrop-filter:blur(16px);
       border:1px solid rgba(255,255,255,.1);
       border-radius:100px; padding:5px 12px;
@@ -74,19 +78,21 @@
     .sn-track { width:5px;height:5px;border-radius:50%;background:rgba(255,255,255,.22);transition:height .45s var(--ease),border-radius .45s,background .3s,box-shadow .3s;flex-shrink:0; }
     .sn-item.active .sn-track { height:26px;border-radius:3px;background:var(--gold);box-shadow:0 0 12px rgba(212,168,75,.4); }
     .sn-item:hover .sn-track { background:rgba(255,255,255,.5); }
-    body.on-light .sn-track { background:rgba(30,110,120,.28); }
-    body.on-light .sn-item.active .sn-track { background:var(--teal);box-shadow:0 0 12px rgba(30,110,120,.3); }
-    body.on-light .sn-item:hover .sn-track { background:rgba(30,110,120,.55); }
+    body.on-light .sn-track { background:rgba(61,90,79,.28); }
+    body.on-light .sn-item.active .sn-track { background:var(--green);box-shadow:0 0 12px rgba(61,90,79,.3); }
+    body.on-light .sn-item:hover .sn-track { background:rgba(61,90,79,.55); }
     @media (max-width:860px) { #sidenav { display:none; } }
 
-    /* ─── NOISE + ORBS ───────────────────────── */
+    /* ─── NOISE ──────────────────────────────── */
     #noise { position:fixed;inset:0;z-index:1;pointer-events:none;opacity:.018;
       background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.8' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
       background-size:180px 180px; }
+
+    /* ─── AMBIENT ORBS ───────────────────────── */
     #ambient { position:fixed;inset:0;z-index:0;pointer-events:none;overflow:hidden; }
     .ab { position:absolute;border-radius:50%;filter:blur(140px); }
-    .ab1 { width:900px;height:900px;background:radial-gradient(#1E6E78,transparent);top:-30%;left:-20%;opacity:.18;animation:drift 28s ease-in-out infinite; }
-    .ab2 { width:600px;height:600px;background:radial-gradient(#3BBFB0,transparent);top:15%;right:-22%;opacity:.08;animation:drift 36s ease-in-out infinite reverse;animation-delay:-12s; }
+    .ab1 { width:900px;height:900px;background:radial-gradient(#3D5A4F,transparent);top:-30%;left:-20%;opacity:.18;animation:drift 28s ease-in-out infinite; }
+    .ab2 { width:600px;height:600px;background:radial-gradient(#6BAF87,transparent);top:15%;right:-22%;opacity:.08;animation:drift 36s ease-in-out infinite reverse;animation-delay:-12s; }
     .ab3 { width:500px;height:500px;background:radial-gradient(#D4A84B,transparent);bottom:0;left:20%;opacity:.04;animation:drift 22s ease-in-out infinite;animation-delay:-18s; }
     @keyframes drift { 0%,100%{transform:translate(0,0) scale(1);}33%{transform:translate(55px,-45px) scale(1.06);}66%{transform:translate(-38px,55px) scale(.95);} }
 
@@ -108,12 +114,12 @@
       position:relative;z-index:2;min-height:100vh;
       display:flex;flex-direction:column;align-items:center;justify-content:center;
       text-align:center;padding:100px 24px 80px;overflow:hidden;
-      background:linear-gradient(175deg, #163040 0%, #0D1F2D 50%, #102030 100%);
+      background:linear-gradient(175deg, #163A24 0%, #0F2D1C 50%, #132A1A 100%);
     }
-    .hero::after { content:'';position:absolute;inset:0;pointer-events:none;background:radial-gradient(ellipse 65% 55% at 50% 45%, rgba(59,191,176,.16), transparent 70%); }
+    .hero::after { content:'';position:absolute;inset:0;pointer-events:none;background:radial-gradient(ellipse 65% 55% at 50% 45%, rgba(107,175,135,.18), transparent 70%); }
     .hero::before {
       content:'';position:absolute;inset:0;pointer-events:none;z-index:0;
-      background-image:radial-gradient(circle, rgba(59,191,176,.10) 1px, transparent 1px);
+      background-image:radial-gradient(circle, rgba(107,175,135,.12) 1px, transparent 1px);
       background-size:32px 32px;
       -webkit-mask-image:radial-gradient(ellipse 80% 80% at 50% 50%, black 30%, transparent 75%);
       mask-image:radial-gradient(ellipse 80% 80% at 50% 50%, black 30%, transparent 75%);
@@ -133,7 +139,7 @@
     .hero-sub {
       position:relative;z-index:1;font-family:'Playfair Display',serif;
       font-size:clamp(16px,2vw,21px);font-weight:400;font-style:italic;
-      color:rgba(242,237,228,.86);line-height:1.8;max-width:520px;margin:0 auto;
+      color:rgba(242,237,228,.86);line-height:1.8;max-width:560px;margin:0 auto;
       opacity:0;animation:slideUp .9s .3s var(--ease) forwards;
     }
     .hero-cta { position:relative;z-index:1;margin-top:72px;display:flex;flex-direction:column;align-items:center;gap:12px;opacity:0;animation:fadeIn 1s .6s forwards; }
@@ -144,34 +150,34 @@
     /* ─── STATS — cream ─────────────────────── */
     .stats { position:relative;z-index:2;background:var(--cream);padding-bottom:64px; }
     .cream-dots::before { content:'';position:absolute;inset:0;pointer-events:none;z-index:0;background-image:radial-gradient(circle,rgba(12,10,9,.042) 1px,transparent 1px);background-size:24px 24px; }
-    .stats::after { content:'';position:absolute;top:0;left:0;right:0;height:3px;background:linear-gradient(90deg,transparent,var(--teal),var(--gold),var(--teal),transparent);opacity:.4; }
+    .stats::after { content:'';position:absolute;top:0;left:0;right:0;height:3px;background:linear-gradient(90deg,transparent,var(--green),var(--gold),var(--green),transparent);opacity:.4; }
     .stats-header { position:relative;z-index:1;padding:52px 32px 0;max-width:1100px;margin:0 auto;display:flex;align-items:center;justify-content:center;gap:14px; }
-    .stats-header::before { content:'';width:28px;height:1px;background:var(--teal);flex-shrink:0; }
-    .stats-header span { font-size:9px;letter-spacing:.28em;text-transform:uppercase;font-weight:600;color:var(--teal); }
+    .stats-header::before { content:'';width:28px;height:1px;background:var(--green);flex-shrink:0; }
+    .stats-header span { font-size:9px;letter-spacing:.28em;text-transform:uppercase;font-weight:600;color:var(--green); }
     .stats-grid { display:grid;grid-template-columns:repeat(4,1fr);border-top:1px solid rgba(12,10,9,.10);border-left:1px solid rgba(12,10,9,.10);position:relative;z-index:1; }
     .stat { padding:60px 32px 56px;text-align:center;border-right:1px solid rgba(12,10,9,.10);border-bottom:1px solid rgba(12,10,9,.10);position:relative;overflow:hidden;transition:background .4s;cursor:default; }
-    .stat::after { content:'';position:absolute;bottom:0;left:0;right:0;height:3px;background:linear-gradient(90deg,transparent,var(--teal),transparent);transform:scaleX(0);transition:transform .7s var(--ease); }
+    .stat::after { content:'';position:absolute;bottom:0;left:0;right:0;height:3px;background:linear-gradient(90deg,transparent,var(--green),transparent);transform:scaleX(0);transition:transform .7s var(--ease); }
     .stat.v::after,.stat:hover::after { transform:scaleX(1); }
-    .stat:hover { background:rgba(30,110,120,.05); }
-    .stat::before { content:attr(data-ghost);position:absolute;top:-8px;left:50%;transform:translateX(-50%);font-family:'Playfair Display',serif;font-size:120px;font-weight:700;line-height:1;color:rgba(30,110,120,.04);pointer-events:none;user-select:none;white-space:nowrap; }
+    .stat:hover { background:rgba(61,90,79,.05); }
+    .stat::before { content:attr(data-ghost);position:absolute;top:-8px;left:50%;transform:translateX(-50%);font-family:'Playfair Display',serif;font-size:120px;font-weight:700;line-height:1;color:rgba(61,90,79,.04);pointer-events:none;user-select:none;white-space:nowrap; }
     .stat-num { font-family:'Playfair Display',serif;font-size:clamp(44px,5.5vw,68px);font-weight:500;line-height:1;color:#0C0A09;display:flex;align-items:baseline;justify-content:center;position:relative;z-index:1; }
-    .stat-k { font-size:.38em;color:var(--teal);font-weight:600;margin-left:3px;font-family:'Inter',sans-serif; }
+    .stat-k { font-size:.38em;color:var(--green);font-weight:600;margin-left:3px;font-family:'Inter',sans-serif; }
     .stat-lbl { margin-top:14px;font-size:9px;letter-spacing:.22em;text-transform:uppercase;color:rgba(12,10,9,.40);position:relative;z-index:1; }
 
     /* ─── SHARED DARK ───────────────────────── */
     .dark-sec { position:relative;z-index:2;overflow:hidden;--mx:50%;--my:50%; }
-    .dark-sec > .spotlight { position:absolute;inset:0;pointer-events:none;z-index:0;background:radial-gradient(600px circle at var(--mx) var(--my),rgba(59,191,176,.09),transparent 55%); }
-    .dark-sec > .dotgrid-layer { position:absolute;inset:0;pointer-events:none;z-index:0;background-image:radial-gradient(circle,rgba(59,191,176,.11) 1px,transparent 1px);background-size:28px 28px; }
+    .dark-sec > .spotlight { position:absolute;inset:0;pointer-events:none;z-index:0;background:radial-gradient(600px circle at var(--mx) var(--my),rgba(107,175,135,.09),transparent 55%); }
+    .dark-sec > .dotgrid-layer { position:absolute;inset:0;pointer-events:none;z-index:0;background-image:radial-gradient(circle,rgba(107,175,135,.11) 1px,transparent 1px);background-size:28px 28px; }
     .inner { position:relative;z-index:1;max-width:1100px;margin:0 auto;padding:120px 32px; }
     .sec-lbl { font-size:9px;letter-spacing:.28em;text-transform:uppercase;font-weight:600;margin-bottom:20px;display:flex;align-items:center;gap:14px; }
     .sec-lbl.gold { color:var(--gold); }
     .sec-lbl.gold::before { content:'';width:28px;height:1px;background:var(--gold);flex-shrink:0; }
-    .sec-lbl.grn { color:var(--teal); }
-    .sec-lbl.grn::before { content:'';width:28px;height:1px;background:var(--teal);flex-shrink:0; }
+    .sec-lbl.grn { color:var(--green); }
+    .sec-lbl.grn::before { content:'';width:28px;height:1px;background:var(--green);flex-shrink:0; }
     .sec-h2 { font-family:'Playfair Display',serif;font-size:clamp(36px,5.2vw,64px);font-weight:400;line-height:1.1;margin-bottom:28px; }
     .sec-h2 em { font-style:italic;color:var(--gold); }
     .sec-h2.dark-text { color:#0C0A09; }
-    .sec-h2.dark-text em { color:var(--teal); }
+    .sec-h2.dark-text em { color:var(--green); }
     .body-txt { font-size:15px;line-height:1.9;color:rgba(242,237,228,.65);max-width:560px; }
     .body-txt.dark { color:rgba(12,10,9,.58); }
 
@@ -190,22 +196,22 @@
     .glass-card .body-txt { color:rgba(242,237,228,.85);max-width:none; }
 
     /* ─── CONCEPT ────────────────────────────── */
-    .concept-sec { background:linear-gradient(180deg,#091826 0%,#163040 100%); }
+    .concept-sec { background:linear-gradient(180deg,#0C2619 0%,#163A24 100%); }
     .concept-grid { display:grid;grid-template-columns:1fr 1fr;gap:24px;margin-top:40px; }
 
     /* ─── CONTENT PLAN — cream ──────────────── */
     .plan-sec { position:relative;z-index:2;background:var(--cream);padding:120px 32px 140px;overflow:hidden; }
-    .plan-sec::after { content:'';position:absolute;top:0;left:0;right:0;height:3px;background:linear-gradient(90deg,transparent,var(--teal),var(--gold),var(--teal),transparent);opacity:.4; }
+    .plan-sec::after { content:'';position:absolute;top:0;left:0;right:0;height:3px;background:linear-gradient(90deg,transparent,var(--green),var(--gold),var(--green),transparent);opacity:.4; }
     .plan-inner { max-width:1100px;margin:0 auto;position:relative;z-index:1; }
     .plan-head { margin-bottom:72px; }
     .episode-grid { display:grid;grid-template-columns:repeat(3,1fr);gap:28px; }
     .ep-card { background:#fff;border:1px solid rgba(12,10,9,.08);border-radius:20px;overflow:hidden;display:flex;flex-direction:column;transition:box-shadow .45s var(--ease),border-color .35s,transform .55s var(--ease);cursor:default; }
-    .ep-card:hover { box-shadow:0 32px 72px rgba(12,10,9,.12);border-color:rgba(30,110,120,.25); }
-    .ep-band { height:5px;background:linear-gradient(90deg,var(--teal),var(--teal-lt)); }
-    .ep-band.b2 { background:linear-gradient(90deg,#166070,var(--teal)); }
-    .ep-band.b3 { background:linear-gradient(90deg,var(--teal-lt),#5CCFC7); }
+    .ep-card:hover { box-shadow:0 32px 72px rgba(12,10,9,.12);border-color:rgba(61,90,79,.25); }
+    .ep-band { height:5px;background:linear-gradient(90deg,var(--green),var(--green-lt)); }
+    .ep-band.b2 { background:linear-gradient(90deg,#2D6B5C,var(--green)); }
+    .ep-band.b3 { background:linear-gradient(90deg,var(--green-lt),#8ABF9E); }
     .ep-body { padding:36px 36px 32px;flex:1;display:flex;flex-direction:column; }
-    .ep-num { font-family:'Playfair Display',serif;font-size:64px;font-weight:700;line-height:1;color:rgba(30,110,120,.10);margin-bottom:20px;margin-left:-4px; }
+    .ep-num { font-family:'Playfair Display',serif;font-size:64px;font-weight:700;line-height:1;color:rgba(61,90,79,.10);margin-bottom:20px;margin-left:-4px; }
     .ep-title { font-family:'Playfair Display',serif;font-size:20px;font-weight:500;margin-bottom:14px;color:#0C0A09; }
     .ep-desc { font-size:13px;line-height:1.85;color:rgba(12,10,9,.52);flex:1; }
     .ep-footer { padding:0 36px 32px; }
@@ -215,12 +221,12 @@
     .ep-card.v .ep-pill:nth-child(1){transition-delay:.35s;}
     .ep-card.v .ep-pill:nth-child(2){transition-delay:.46s;}
     .ep-card.v .ep-pill:nth-child(3){transition-delay:.57s;}
-    .pill-reel  { background:rgba(30,110,120,.1);color:var(--teal);border:1px solid rgba(30,110,120,.2); }
+    .pill-reel  { background:rgba(61,90,79,.1);color:var(--green);border:1px solid rgba(61,90,79,.2); }
     .pill-story { background:rgba(212,168,75,.1);color:#9A6E1A;border:1px solid rgba(212,168,75,.3); }
     .pill-img   { background:rgba(12,10,9,.05);color:rgba(12,10,9,.5);border:1px solid rgba(12,10,9,.1); }
 
     /* ─── DELIVERS ───────────────────────────── */
-    .delivers-sec { background:linear-gradient(180deg,#163040 0%,#091826 100%); }
+    .delivers-sec { background:linear-gradient(180deg,#163A24 0%,#0C2619 100%); }
     .delivers-grid { display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:16px;margin-top:56px; }
     .d-card { padding:44px 40px;border:1px solid var(--border);border-radius:20px;background:rgba(255,255,255,.035);position:relative;overflow:hidden;transition:border-color .4s,box-shadow .4s,transform .55s var(--ease);cursor:default; }
     .d-card::before { content:'';position:absolute;inset:0;border-radius:20px;background:radial-gradient(circle at var(--mx,50%) var(--my,50%),rgba(212,168,75,.09),transparent 55%);opacity:0;transition:opacity .3s; }
@@ -233,7 +239,7 @@
     .d-card h4 { font-family:'Playfair Display',serif;font-size:21px;font-weight:500;margin-bottom:12px; }
     .d-card p { font-size:13px;line-height:1.85;color:rgba(242,237,228,.50); }
     .d-card.d1,.d-card.d2,.d-card.d3 { border-color:rgba(212,168,75,.35);box-shadow:0 24px 60px rgba(0,0,0,.35); }
-    .ep-card.d1,.ep-card.d3 { box-shadow:0 32px 72px rgba(12,10,9,.12);border-color:rgba(30,110,120,.25); }
+    .ep-card.d1,.ep-card.d3 { box-shadow:0 32px 72px rgba(12,10,9,.12);border-color:rgba(61,90,79,.25); }
     .d-card.d1.v,.ep-card.d1.v { transform:perspective(1300px) rotateY(9deg); }
     .d-card.d3.v,.ep-card.d3.v { transform:perspective(1300px) rotateY(-9deg); }
     .p-card.feat.v { transform:perspective(1300px) rotateY(8deg); }
@@ -255,8 +261,8 @@
     .pricing-orbs { position:absolute;inset:0;pointer-events:none;overflow:hidden;z-index:1; }
     .po { position:absolute;border-radius:50%;filter:blur(130px); }
     .po1 { width:700px;height:700px;background:radial-gradient(rgba(212,168,75,.12),transparent);top:-250px;right:-180px;animation:drift 30s ease-in-out infinite; }
-    .po2 { width:500px;height:500px;background:radial-gradient(rgba(59,191,176,.08),transparent);bottom:-150px;left:-80px;animation:drift 24s ease-in-out infinite reverse;animation-delay:-10s; }
-    .pricing-sec .pricing-spot { position:absolute;width:800px;height:800px;border-radius:50%;background:radial-gradient(circle,rgba(30,110,120,.14),transparent 65%);pointer-events:none;left:var(--px,50%);top:var(--py,50%);transform:translate(-50%,-50%);transition:left .4s ease,top .4s ease;z-index:1; }
+    .po2 { width:500px;height:500px;background:radial-gradient(rgba(107,175,135,.08),transparent);bottom:-150px;left:-80px;animation:drift 24s ease-in-out infinite reverse;animation-delay:-10s; }
+    .pricing-sec .pricing-spot { position:absolute;width:800px;height:800px;border-radius:50%;background:radial-gradient(circle,rgba(61,90,79,.14),transparent 65%);pointer-events:none;left:var(--px,50%);top:var(--py,50%);transform:translate(-50%,-50%);transition:left .4s ease,top .4s ease;z-index:1; }
     .pricing-sec .pricing-topline { position:absolute;top:0;left:0;right:0;height:2px;z-index:2;background:linear-gradient(90deg,transparent 0%,rgba(212,168,75,.5) 30%,rgba(212,168,75,.8) 50%,rgba(212,168,75,.5) 70%,transparent 100%); }
     .pricing-inner { max-width:960px;margin:0 auto;position:relative;z-index:2; }
     .pricing-head { text-align:center;margin-bottom:72px; }
@@ -292,8 +298,8 @@
     .partners-gold-line-b { position:absolute;bottom:0;left:0;right:0;height:2px;z-index:2;background:linear-gradient(90deg,transparent 0%,rgba(212,168,75,.5) 30%,rgba(212,168,75,.8) 50%,rgba(212,168,75,.5) 70%,transparent 100%); }
     .gold-top-line { position:absolute;top:0;left:0;right:0;height:2px;z-index:2;background:linear-gradient(90deg,transparent 0%,rgba(212,168,75,.5) 30%,rgba(212,168,75,.8) 50%,rgba(212,168,75,.5) 70%,transparent 100%); }
     .partners-head { text-align:center;margin-bottom:52px;position:relative;z-index:1;display:flex;flex-direction:column;align-items:center;gap:12px; }
-    .partners-lbl { font-size:9px;letter-spacing:.28em;text-transform:uppercase;font-weight:600;color:var(--teal); }
-    .partners-rule { width:32px;height:1px;background:linear-gradient(90deg,transparent,var(--teal),transparent); }
+    .partners-lbl { font-size:9px;letter-spacing:.28em;text-transform:uppercase;font-weight:600;color:var(--green); }
+    .partners-rule { width:32px;height:1px;background:linear-gradient(90deg,transparent,var(--green),transparent); }
     .ticker-wrap { overflow:hidden;width:100%;-webkit-mask-image:linear-gradient(to right,transparent 0%,black 10%,black 90%,transparent 100%);mask-image:linear-gradient(to right,transparent 0%,black 10%,black 90%,transparent 100%);position:relative;z-index:1; }
     .ticker-track { display:flex;align-items:center;width:max-content;animation:ticker 32s linear infinite;will-change:transform; }
     .ticker-track:hover { animation-play-state:paused; }
@@ -307,16 +313,16 @@
       position:relative;z-index:2;
       min-height:80vh;display:flex;align-items:center;justify-content:center;
       text-align:center;padding:140px 24px 120px;overflow:hidden;
-      background:linear-gradient(175deg,#163040 0%,#0D1F2D 50%,#102030 100%);
+      background:linear-gradient(175deg,#163A24 0%,#0F2D1C 50%,#132A1A 100%);
     }
     .cta-sec::before {
       content:'';position:absolute;inset:0;pointer-events:none;z-index:0;
-      background-image:radial-gradient(circle,rgba(59,191,176,.10) 1px,transparent 1px);
+      background-image:radial-gradient(circle,rgba(107,175,135,.12) 1px,transparent 1px);
       background-size:32px 32px;
       -webkit-mask-image:radial-gradient(ellipse 80% 80% at 50% 50%,black 30%,transparent 75%);
       mask-image:radial-gradient(ellipse 80% 80% at 50% 50%,black 30%,transparent 75%);
     }
-    .cta-sec::after { content:'';position:absolute;inset:0;pointer-events:none;background:radial-gradient(ellipse 65% 55% at 50% 50%,rgba(59,191,176,.14),transparent 70%); }
+    .cta-sec::after { content:'';position:absolute;inset:0;pointer-events:none;background:radial-gradient(ellipse 65% 55% at 50% 50%,rgba(107,175,135,.16),transparent 70%); }
     .cta-inner { position:relative;z-index:1;width:100%; }
     .cta-h2 { font-family:'Playfair Display',serif;font-size:clamp(52px,8vw,108px);font-weight:400;line-height:1.1;margin-bottom:24px;color:var(--ink); }
     .cta-h2 em { font-style:italic;color:var(--gold); }
@@ -393,7 +399,7 @@
   </div>
   <div class="hero-divider" aria-hidden="true"></div>
   <p class="hero-sub">
-    Altanens ultimata förvandling — tre produkter, tre publiceringar och 190&nbsp;000 inspirerade följare.
+    Villa Sjöviks fasad och stuprännor möter JAPE Underhållstvätt — tre publiceringar och 190&nbsp;000 inspirerade följare.
   </p>
   <div class="hero-cta" aria-hidden="true">
     <span>Utforska</span>
@@ -433,15 +439,15 @@
   <div class="inner">
     <div class="sec-lbl gold rv">Konceptet</div>
     <h2 class="sec-h2 ws">
-      <span class="w"><i>Altanens&nbsp;</i></span><span class="w"><i>förvandling.</i></span>
+      <span class="w"><i>Fasad&nbsp;</i></span><span class="w"><i>&amp;&nbsp;</i></span><span class="w"><i>stuprännor.</i></span>
       <br><em><span class="w"><i>En&nbsp;</i></span><span class="w"><i>äkta&nbsp;</i></span><span class="w"><i>berättelse.</i></span></em>
     </h2>
     <div class="concept-grid">
       <div class="glass-card rv d2">
-        <p class="body-txt">Jag genomför den ultimata vårstädningen av Villa Sjöviks altan — från algbemängda trägolv och sotiga grilldelar till kristallklara glasytor. En autentisk transformation som inspirerar tusentals husägare att ta tag i sin altan.</p>
+        <p class="body-txt">Villa Sjövik genomgår just nu en stor förvandling med ett pågående SiOO:X-projekt på trädäck och altan. Fasaden och stuprännorna är deras eget kapitel — algbemängda, nersmutsade och redo för sin grundliga vårskura med JAPE Underhållstvätt.</p>
       </div>
       <div class="glass-card rv d3">
-        <p class="body-txt">JAPE levererar produkterna. Jag producerar och publicerar allt innehåll — från de detaljerade 'före'-bilderna till det befriande slutresultatet. Ni äger allt material med fri och obegränsad nyttjanderätt.</p>
+        <p class="body-txt">JAPE levererar Underhållstvätten. Jag producerar och publicerar tre separata inlägg — fasad, stuprännor och det befriande slutresultatet. Ni äger allt material med fri och obegränsad nyttjanderätt.</p>
       </div>
     </div>
   </div>
@@ -451,10 +457,10 @@
 <div class="plan-sec cream-dots" id="sec-plan">
   <div class="plan-inner">
     <div class="plan-head">
-      <div class="sec-lbl grn rv">Produktplan</div>
+      <div class="sec-lbl grn rv">Innehållsplan</div>
       <h2 class="sec-h2 dark-text ws">
-        <span class="w"><i>Tre&nbsp;</i></span><span class="w"><i>produkter.&nbsp;</i></span>
-        <em><span class="w"><i>En&nbsp;</i></span><span class="w"><i>hel&nbsp;</i></span><span class="w"><i>transformation.</i></span></em>
+        <span class="w"><i>En&nbsp;</i></span><span class="w"><i>produkt.&nbsp;</i></span>
+        <em><span class="w"><i>Tre&nbsp;</i></span><span class="w"><i>berättelser.</i></span></em>
       </h2>
     </div>
     <div class="episode-grid">
@@ -462,14 +468,13 @@
         <div class="ep-band b1"></div>
         <div class="ep-body">
           <div class="ep-num">1</div>
-          <div class="ep-title">Grön-Fri — Ren altan</div>
-          <div class="ep-desc">Altanens golv täckt av alger och mörka fläckar efter vintern. Med Grön-Fri visar vi hur enkelt och effektivt man tar bort påväxt utan att slita på materialet — ett tydligt 'före och efter' som engagerar och inspirerar.</div>
+          <div class="ep-title">Fasaden — från alger till fräsch</div>
+          <div class="ep-desc">Villa Sjöviks fasad bär vinterhalvårets spår av alger, smuts och missfärgningar. Med JAPE Underhållstvätt visar vi hela processen — från den första penseln mot teglet till den rena, välvårdade fasad som möter grannar och gäster.</div>
         </div>
         <div class="ep-footer">
           <div class="ep-pills">
             <span class="ep-pill pill-reel">1 Reel</span>
-            <span class="ep-pill pill-story">3–5 Stories</span>
-            <span class="ep-pill pill-img">10 bilder</span>
+            <span class="ep-pill pill-story">2 Stories</span>
           </div>
         </div>
       </div>
@@ -477,14 +482,13 @@
         <div class="ep-band b2"></div>
         <div class="ep-body">
           <div class="ep-num">2</div>
-          <div class="ep-title">Sot &amp; Olja — Grill och ytor</div>
-          <div class="ep-desc">Grillen och omkringliggande ytor bär spår från förra säsongen. Vi visar hur Sanera Sot &amp; Olja tar bort hårdnackat sot, olja och fett utan att skada materialet — snabbt och proffsigt resultat.</div>
+          <div class="ep-title">Stuprännor &amp; avrinning</div>
+          <div class="ep-desc">Stuprännor och avlopp är husets dolda hjältar — och de mest försummade. Vi dokumenterar hur Underhållstvätten tar bort inbackat smuts, mossbeläggning och mörka stränk, och varför regelbunden skötsel gör verklig skillnad för huset på lång sikt.</div>
         </div>
         <div class="ep-footer">
           <div class="ep-pills">
             <span class="ep-pill pill-reel">1 Reel</span>
-            <span class="ep-pill pill-story">3–5 Stories</span>
-            <span class="ep-pill pill-img">10 bilder</span>
+            <span class="ep-pill pill-story">2 Stories</span>
           </div>
         </div>
       </div>
@@ -492,14 +496,13 @@
         <div class="ep-band b3"></div>
         <div class="ep-body">
           <div class="ep-num">3</div>
-          <div class="ep-title">Sanera Glas — Kristallklar finish</div>
-          <div class="ep-desc">Glasräcken, utemöbler och fönster mot utemiljön behöver sin vårskura. Sanera Glas ger en kristallklar finish som avslutar altanens kompletta transformation — visuellt tillfredsställande och inspirerande.</div>
+          <div class="ep-title">Villa Sjövik — fräsch &amp; redo</div>
+          <div class="ep-desc">Avslutande publicering med det kompletta förtagit-resultatet. Hela exteriören samlad i ett enda tillfredsställande "efter" — fasad, stuprännor och omgivning. Tydlig CTA till JAPEs produktsida för alla som vill göra samma sak hemma.</div>
         </div>
         <div class="ep-footer">
           <div class="ep-pills">
             <span class="ep-pill pill-reel">1 Reel</span>
-            <span class="ep-pill pill-story">3–5 Stories</span>
-            <span class="ep-pill pill-img">10 bilder</span>
+            <span class="ep-pill pill-story">2 Stories med CTA</span>
           </div>
         </div>
       </div>
@@ -517,25 +520,25 @@
       <span class="w"><i>Innehåll&nbsp;</i></span><span class="w"><i>ni&nbsp;</i></span><span class="w"><i>äger&nbsp;</i></span>
       <em><span class="w"><i>för&nbsp;</i></span><span class="w"><i>alltid.</i></span></em>
     </h2>
-    <p class="body-txt rv">Med 3-produktpaketet får ni tre separata publiceringar — en per produkt. Tre chanser att nå nya kunder och tre trafiktillfällen mot era produktsidor. Allt material äger ni med full nyttjanderätt.</p>
+    <p class="body-txt rv">Med det kompletta paketet får ni tre separata publiceringar — fasad, stuprännor och slutresultatet. Tre trafiktillfällen mot era produktsidor och ett komplett mediaunderlag att använda fritt i era egna kanaler.</p>
     <div class="delivers-grid">
       <div class="d-card rv d1">
         <div class="d-bg-num">1</div>
         <svg class="d-icon" viewBox="0 0 24 24"><polygon points="5 3 19 12 5 21 5 3"/></svg>
         <h4>3 Reels — Instagram &amp; Facebook</h4>
-        <p>Tre publiceringar i Villa Sjöviks kanaler — en per produkt.</p>
+        <p>Tre separata publiceringar i Villa Sjöviks kanaler — en per del. Tre algoritmtillfällen med organisk räckvidd.</p>
       </div>
       <div class="d-card rv d2">
         <div class="d-bg-num">2</div>
         <svg class="d-icon" viewBox="0 0 24 24"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
-        <h4>~12 Stories med CTA</h4>
-        <p>3–5 Stories per produkt med swipe-up länk direkt till era produktsidor — tre separata trafiktillfällen.</p>
+        <h4>6 Stories — 2 med CTA</h4>
+        <p>2 Stories per publicering, totalt 6. Varav 2 Stories inkluderar direktlänk till er produktsida — mätbara trafiktillfällen.</p>
       </div>
       <div class="d-card rv d3">
         <div class="d-bg-num">3</div>
         <svg class="d-icon" viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18M9 21V9"/></svg>
-        <h4>30 bilder + 3 filmklipp</h4>
-        <p>10 professionella bilder per produkt samt filmklipp. Fri och obegränsad nyttjanderätt för era kanaler, hemsida och annonsering.</p>
+        <h4>30 bilder + filmklipp</h4>
+        <p>Professionella miljö- och produktbilder samt filmklipp på fasad, stuprännor och slutresultatet. Fri och obegränsad nyttjanderätt för era kanaler, hemsida och annonsering.</p>
       </div>
     </div>
   </div>
@@ -558,30 +561,30 @@
     <div class="pricing-cards">
       <div class="p-card feat rv">
         <div class="p-badge">Rekommenderas</div>
-        <div class="p-title">3-produktpaket</div>
-        <div class="p-desc">3 Reels · ~12 Stories · 30 bilder + 3 filmklipp</div>
+        <div class="p-title">Komplett paket</div>
+        <div class="p-desc">3 Reels · 6 Stories · 30 bilder + filmklipp</div>
         <div class="p-amt">39 000</div>
         <div class="p-unit">kr exkl. moms</div>
         <ul class="p-list">
           <li>3 Reels publicerade på Instagram och Facebook</li>
-          <li>3–5 Stories per produkt med CTA (~12 totalt)</li>
-          <li>30 professionella miljö- och produktbilder + 3 filmklipp</li>
+          <li>6 Stories varav 2 med CTA till er produktsida</li>
+          <li>30 professionella miljö- och produktbilder + filmklipp</li>
           <li>Fri och obegränsad nyttjanderätt på allt material</li>
           <li>3 separata publiceringsdagar — 3× algoritmräckvidd</li>
-          <li>Optimal timing — april/maj, högsäsong för altanfix</li>
+          <li>Optimal timing — vår/sommar, högsäsong för fasadskötsel</li>
         </ul>
       </div>
       <div class="p-card rv d1">
-        <div class="p-title">1 produkt</div>
-        <div class="p-desc">1 Reel · 3–5 Stories · 10 bilder + filmklipp</div>
+        <div class="p-title">Enstaka publicering</div>
+        <div class="p-desc">1 Reel · 2 Stories · bilder + filmklipp</div>
         <div class="p-amt">18 500</div>
         <div class="p-unit">kr exkl. moms</div>
         <ul class="p-list">
           <li>1 Reel publicerad på Instagram och Facebook</li>
-          <li>3–5 Stories med direktlänk och CTA</li>
-          <li>10 professionella miljö- och produktbilder + filmklipp</li>
+          <li>2 Stories med direktlänk och CTA</li>
+          <li>Professionella miljö- och produktbilder + filmklipp</li>
           <li>Fri och obegränsad nyttjanderätt på allt material</li>
-          <li class="dim">Komplett innehåll för en produkt — ett trafiktillfälle</li>
+          <li class="dim">Komplett innehåll för en publicering — ett trafiktillfälle</li>
         </ul>
       </div>
     </div>
@@ -661,7 +664,7 @@ const navConfig=[
   {id:'sec-hero',    label:'Start'},
   {id:'sec-stats',   label:'Räckvidd'},
   {id:'sec-concept', label:'Koncept'},
-  {id:'sec-plan',    label:'Produkter'},
+  {id:'sec-plan',    label:'Innehåll'},
   {id:'pricing-sec', label:'Paket'},
   {id:'sec-cta',     label:'Kontakt'},
 ];
@@ -696,7 +699,7 @@ hoverTgts.forEach(el=>{el.addEventListener('mouseenter',()=>document.body.classL
 /* SPOTLIGHT */
 document.querySelectorAll('.dark-sec').forEach(sec=>{
   const sp=sec.querySelector('.spotlight');if(!sp)return;
-  sec.addEventListener('mousemove',e=>{const r=sec.getBoundingClientRect();sp.style.background=`radial-gradient(600px circle at ${e.clientX-r.left}px ${e.clientY-r.top}px,rgba(59,191,176,.10),transparent 55%)`;},{passive:true});
+  sec.addEventListener('mousemove',e=>{const r=sec.getBoundingClientRect();sp.style.background=`radial-gradient(600px circle at ${e.clientX-r.left}px ${e.clientY-r.top}px,rgba(107,175,135,.10),transparent 55%)`;},{passive:true});
   sec.addEventListener('mouseleave',()=>{sp.style.background='none';});
 });
 
